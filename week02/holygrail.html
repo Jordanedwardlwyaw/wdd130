@@ -1,2 +1,84 @@
 <!DOCTYPE html>
-<html
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Holy Grail Layout Example</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "nav main";
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: auto 1fr;
+      height: 100vh;
+    }
+
+    header {
+      grid-area: header;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      grid-area: nav;
+      background-color: #f4f4f4;
+      padding: 1rem;
+    }
+
+    main {
+      grid-area: main;
+      padding: 1rem;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    nav ul li a:hover {
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A Holy Grail Layout Example</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="https://www.example.com" target="_blank">Example</a></li>
+      <li><a href="https://www.wikipedia.org" target="_blank">Wikipedia</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Heading 1</h2>
+      <p>This is the first section paragraph.</p>
+    </section>
+    <section>
+      <h2>Heading 2</h2>
+      <p>This is the second section paragraph.</p>
+    </section>
+  </main>
+</body>
+</html>
