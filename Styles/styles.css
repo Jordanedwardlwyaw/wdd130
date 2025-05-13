@@ -6,12 +6,12 @@ padding: 100px;
 nav a {
 color:white;
 display: block;
-padding: 20px;
+padding: 2px;
 }
 h1{
  color:darkblue;   
 }
-img{
+main img{
  width: 150px;   
  height: auto;
  border: 1px solid black;
@@ -20,4 +20,25 @@ img{
 }
 p {
 padding: 10px;
+}
+
+<aside {
+    width: 28em;
+    margin: 1em;
+    border:1px solid rgba(0,0,0.2);
+    padding: 1em;
+    background-color:white ;
+    color: black;
+    text-align: center;
+}   
+
+aside img{
+    width: 200px;
+    height: auto;
+}
+
+footer{
+    margin-top: 1em;
+    border-top: 1px solid  #000;
+    text-align: center;
 }
