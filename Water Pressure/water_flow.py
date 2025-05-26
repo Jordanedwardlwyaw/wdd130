@@ -1,7 +1,3 @@
-# Enhancements:
-# - Extracted constants for gravity, water density, and viscosity.
-# - Added a function to convert kPa to psi and print it in main.
-
 # Constants
 EARTH_ACCELERATION_OF_GRAVITY = 9.80665      # m/s^2
 WATER_DENSITY = 998.2                        # kg/m^3
@@ -65,4 +61,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
