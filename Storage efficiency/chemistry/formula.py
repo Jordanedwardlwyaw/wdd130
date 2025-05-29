@@ -1,54 +1,104 @@
+
 class FormulaError(ValueError):
-    """FormulaError is raised if a formula is invalid."""
-    pass
-
-def parse_formula(formula, periodic_table=None):
+    """FormulaError is the type of error that the parse_formula
+    function will raise if a formula is invalid.
     """
-    Convert a chemical formula for a molecule into a compound list.
 
-    Example: "H2O" → [["H", 2], ["O", 1]]
+
+def parse_formula(formula, periodic_table_dict):
+    """Convert a chemical formula for a molecule into a compound
+    list that stores the quantity of atoms of each element
+    in the molecule. For example, this function will convert
+    "H2O" to [["H", 2], ["O", 1]] and
+    "PO4H2(CH2)12CH3" to [["P", 1], ["O", 4], ["H", 29], ["C", 13]]
+
+    Parameters
+        formula is a string that contains a chemical formula
+        periodic_table_dict is the compound dictionary returned
+            from make_periodic_table
+    Return: a compound list that contains chemical symbols and
+        quantities like this [["Fe", 2], ["O", 3]]
     """
-    def parse_quant(formula, i):
+    assert isinstance(formula, str), \
+        "wrong data type for parameter formula; " \
+        f"formula is a {type(formula)} but must be a string"
+    assert isinstance(periodic_table_dict, dict), \
+        "wrong data type for parameter periodic_table_dict; " \
+        f"periodic_table_dict is a {type(periodic_table_dict)} " \
+        "but must be a dictionary"
+
+    def parse_quant(formula, index):
         quant = 1
-        if i < len(formula) and formula[i].isdigit():
-            start = i
-            while i < len(formula) and formula[i].isdigit():
-                i += 1
-            quant = int(formula[start:i])
-        return quant, i
+        if index < len(formula) and formula[index].isdecimal():
+            if formula[index] == "0":
+                raise FormulaError("invalid formula, "
+                    "quantity begins with zero (0), perhaps "
+                    "you meant to type capital O for Oxygen "
+                    "instead of zero", formula, index)
+            start = index
+            index += 1
+            while index<len(formula) and formula[index].isdecimal():
+                index += 1
+            quant = int(formula[start:index])
+        return quant, index
 
-    def parse_recursive(formula, i, level):
+    def get_quant(elem_dict, symbol):
+        return 0 if symbol not in elem_dict else elem_dict[symbol]
+
+    def parse_r(formula, index, level):
+        start_index = index
         start_level = level
-        symbol_quantity_list = []
-        while i < len(formula):
-            ch = formula[i]
+        elem_dict = {}
+        while index < len(formula):
+            ch = formula[index]
             if ch == "(":
-                group, i = parse_recursive(formula, i + 1, level + 1)
-                quant, i = parse_quant(formula, i)
-                for elem in group:
-                    elem[1] *= quant
-                symbol_quantity_list.extend(group)
+                group_dict, index = parse_r(formula,index+1,level+1)
+                quant, index = parse_quant(formula, index)
+                for symbol in group_dict:
+                    prev = get_quant(elem_dict, symbol)
+                    curr = prev + group_dict[symbol] * quant
+                    elem_dict[symbol] = curr
             elif ch.isalpha():
-                if ch.isupper():
-                    symbol = ch
-                    i += 1
-                    if i < len(formula) and formula[i].islower():
-                        symbol += formula[i]
-                        i += 1
-                    quant, i = parse_quant(formula, i)
-                    symbol_quantity_list.append([symbol, quant])
+                symbol = formula[index:index+2]
+                if symbol in periodic_table_dict:
+                    index += 2
                 else:
-                    raise FormulaError(f"Invalid formula at index {i}")
+                    symbol = formula[index:index+1]
+                    if symbol in periodic_table_dict:
+                        index += 1
+                    else:
+                        raise FormulaError("invalid formula; "
+                            f"unknown element symbol: {symbol}",
+                            formula, index)
+                quant, index = parse_quant(formula, index)
+                prev = get_quant(elem_dict, symbol)
+                elem_dict[symbol] = prev + quant
             elif ch == ")":
                 if level == 0:
-                    raise FormulaError("Unmatched closing parenthesis")
+                    raise FormulaError("invalid formula; "
+                        "unmatched close parenthesis",
+                        formula, index)
                 level -= 1
-                return symbol_quantity_list, i + 1
+                index += 1
+                break
             else:
-                raise FormulaError(f"Invalid character '{ch}' at index {i}")
-        if level != 0:
-            raise FormulaError("Unmatched opening parenthesis")
-        return symbol_quantity_list, i
+                if ch.isdecimal():
+                    # Decimal digit not preceded by an
+                    # element symbol or close parenthesis
+                    message = "invalid formula"
+                else:
+                    # Illegal character: [^()0-9a-zA-Z]
+                    message = "invalid formula; " + \
+                        f"illegal character: {ch}"
+                raise FormulaError(message, formula, index)
+        if level > 0 and level >= start_level:
+            raise FormulaError("invalid formula; "
+                "unmatched open parenthesis",
+                formula, start_index - 1)
+        return elem_dict, index
 
-    parsed_formula, _ = parse_recursive(formula, 0, 0)
-    return parsed_formula
+    # Return the compound list of element symbols and
+    # quantities. Each element in the compound list
+    # will be a list in this form: ["symbol", quantity]
+    elem_dict, _ = parse_r(formula, 0, 0)
+    return list(elem_dict.items())
