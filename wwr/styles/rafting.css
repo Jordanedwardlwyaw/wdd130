@@ -110,6 +110,7 @@ footer p {
 
 .social-icons {
  flex-direction: row;
+ display: flex;
 }
 
 .social-icons a {
