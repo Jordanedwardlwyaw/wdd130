@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 
-# Constants
+
 SALES_TAX_RATE = 0.06
 STORE_NAME = "Inkom Emporium"
 
@@ -24,13 +24,13 @@ def read_dictionary(filename, key_column_index):
 
 def main():
     try:
-        # Load product catalog
+        
         products = read_dictionary("C:/Users/y/OneDrive/desktop/CSCP110/CSE111/Wdd130/receipt/products.csv", 0)
 
-        if not products:  # Stop execution if file is missing
+        if not products:  
             return
 
-        # Load customer request
+        
         order = {}
         try:
             with open("request.csv", newline="") as file:
@@ -40,23 +40,23 @@ def main():
                     if len(row) < 2:
                         continue
                     product_id = row[0].strip()
-                    quantity = int(row[1])  # Fix: Define `quantity`
+                    quantity = int(row[1])  
 
-                    # KeyError happens naturally if product ID is missing
+                    
                     product_data = products[product_id]
                     name, price = product_data[1], float(product_data[2])
 
-                    # Merge duplicate items
+                    
                     if product_id in order:
                         order[product_id] = (name, order[product_id][1] + quantity, price)
                     else:
                         order[product_id] = (name, quantity, price)
-        except FileNotFoundError as e:  # Move exception handling out of loop
+        except FileNotFoundError as e:  
             print("Error: missing file")
             print(e)
             return
 
-        # Print receipt
+        
         print(STORE_NAME)
         print()
 
@@ -64,7 +64,7 @@ def main():
         total_items = 0
 
         for name, quantity, price in order.values():
-            print(f"{name}: {quantity} @ ${price:.2f}")  # Fix: Correct print formatting
+            print(f"{name}: {quantity} @ ${price:.2f}") 
             subtotal += quantity * price
             total_items += quantity
 
@@ -77,7 +77,7 @@ def main():
         print(f"Total: ${total:.2f}")
         print("\nThank you for shopping at the Inkom Emporium.")
 
-        # Print formatted date and time
+        
         current_date_and_time = datetime.now()
         print(f"\n{current_date_and_time:%A %I:%M %p}")
 
@@ -86,7 +86,7 @@ def main():
         print(e)
     except KeyError as e:
         print("Error: unknown product ID in request.csv")
-        print(f"'{e}'")  # Fix: Ensure message matches expected output
+        print(f"'{e}'")  
 
 if __name__ == '__main__':
     main()
