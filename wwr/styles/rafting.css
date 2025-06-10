@@ -1,77 +1,67 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-
 header, footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 15px;
+  background: #004466;
+  color: white;
+  text-align:center;
+  padding: 1rem;
+  
 }
-
-nav ul {
-    list-style: none;
-    padding: 0;
+nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
 }
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
+.hero {
+  position: relative;
 }
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
+.hero-img {
+  width: 100%;
+  height: auto;
 }
-
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
+.hero-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.5rem;
+  background: rgba(0,0,0,0.6);
+  padding: 1rem;
 }
-
-h2 {
-    color: #333;
+.cta {
+  text-align: center;
+  margin: 2rem;
 }
-
-.employee {
-    display: inline-block;
-    margin: 10px;
-    text-align: center;
+.cta-button {
+  background: #00aaff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
 }
-
-.employee img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+.newsletter {
+  background: #f0f8ff;
+  text-align: center;
+  padding: 2rem;
 }
-
-form {
-    display: flex;
-    flex-direction: column;
+.newsletter input {
+  margin: 0.5rem;
+  padding: 0.5rem;
 }
-
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
 }
-
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.info-item {
+  text-align: center;
 }
-
-button:hover {
-    background-color: #218838;
+.info-item img {
+  width: 100%;
+  height: auto;
 }
