@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Explore thrilling white water rafting trips. Choose from River Rush, Family Float, or Sunset Paddle. Book your adventure today!"/>
   <title>White Water Rafting - Trips</title>
   <link rel="stylesheet" href="styles/rafting.css">
 </head>
@@ -17,12 +18,67 @@
   </header>
 
   <main>
-    <h1>Our Rafting Trips</h1>
-    <ul>
-      <li><strong>River Rush</strong>  A fast-paced thrill ride for adrenaline seekers.</li>
-      <li><strong>Family Float</strong>  Calm and fun, great for all ages.</li>
-      <li><strong>Sunset Paddle</strong>  A scenic evening trip with stunning views.</li>
-    </ul>
+    <h1 style="text-align: center; margin: 2rem 0;">Our Rafting Trips</h1>
+
+    <!-- Trip Content with Images -->
+    <section class="info-grid">
+      <div class="info-item">
+        <img src="images/river_rush.jpg" alt="River Rush adventure">
+        <h2>River Rush</h2>
+        <p>A fast-paced thrill ride for adrenaline seekers. Perfect for experienced rafters ready to conquer exciting rapids.</p>
+      </div>
+      <div class="info-item">
+        <img src="images/family_float.jpg" alt="Family Float experience">
+        <h2>Family Float</h2>
+        <p>Calm and fun, this trip is great for families with children or anyone who prefers a gentle river experience.</p>
+      </div>
+      <div class="info-item">
+        <img src="images/sunset_paddle.jpg" alt="Sunset Paddle view">
+        <h2>Sunset Paddle</h2>
+        <p>A scenic evening trip offering stunning views and peaceful paddling. A great way to end your day on the river.</p>
+      </div>
+    </section>
+
+    <!-- Trip Summary Table -->
+    <section style="padding: 2rem;">
+      <h2 style="text-align: center;">Trip Summary</h2>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr style="background: #004466; color: white;">
+            <th style="padding: 0.5rem;">Trip Name</th>
+            <th style="padding: 0.5rem;">Difficulty</th>
+            <th style="padding: 0.5rem;">Duration</th>
+            <th style="padding: 0.5rem;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align: center;">
+            <td>River Rush</td>
+            <td>High</td>
+            <td>2 hours</td>
+            <td>$75</td>
+          </tr>
+          <tr style="text-align: center; background: #f0f8ff;">
+            <td>Family Float</td>
+            <td>Low</td>
+            <td>3 hours</td>
+            <td>$60</td>
+          </tr>
+          <tr style="text-align: center;">
+            <td>Sunset Paddle</td>
+            <td>Medium</td>
+            <td>2.5 hours</td>
+            <td>$65</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+      <p>Have questions or ready to book?</p>
+      <a href="contact.html" class="cta-button">Contact Us</a>
+    </section>
   </main>
 
   <footer>
